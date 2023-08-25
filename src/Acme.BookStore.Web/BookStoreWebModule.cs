@@ -95,6 +95,14 @@ public class BookStoreWebModule : AbpModule
         ConfigureSwaggerServices(context.Services);
     }
 
+    Configure<RazorPagesOptions>(options =>
+    {
+        options.Conventions.AuthorizePage("/Books/Index", BookStorePermissions.Books.Default);
+        options.Conventions.AuthorizePage("/Books/CreateModal", BookStorePermissions.Books.Create);
+        options.Conventions.AuthorizePage("/Books/EditModal", BookStorePermissions.Books.Edit);
+    });
+
+
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
